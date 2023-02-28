@@ -1,0 +1,2 @@
+v1	named	intermediary
+METHOD	net/fabricmc/example/mixin/EfficiencyMixin	()I	getMaxLevel	method_8183

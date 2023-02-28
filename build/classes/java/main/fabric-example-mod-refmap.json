@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "net/fabricmc/example/mixin/AnvilXpLimitBreakMixin": {
+      "updateResult": "Lnet/minecraft/class_1706;method_24928()V"
+    },
+    "net/fabricmc/example/mixin/AnvilXpLimitBreakGUIMixin": {
+      "drawForeground": "Lnet/minecraft/class_471;method_2388(Lnet/minecraft/class_4587;II)V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/fabricmc/example/mixin/AnvilXpLimitBreakMixin": {
+        "updateResult": "Lnet/minecraft/class_1706;method_24928()V"
+      },
+      "net/fabricmc/example/mixin/AnvilXpLimitBreakGUIMixin": {
+        "drawForeground": "Lnet/minecraft/class_471;method_2388(Lnet/minecraft/class_4587;II)V"
+      }
+    }
+  }
+}
