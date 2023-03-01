@@ -5,6 +5,10 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(net.minecraft.enchantment.EfficiencyEnchantment.class)
 public class EfficiencyMixin {
+	/**
+	 * @author
+	 * @reason
+	 */
 	@Overwrite
 	public int getMaxLevel() {
 		return 9;

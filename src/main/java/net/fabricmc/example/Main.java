@@ -1,14 +1,6 @@
 package net.fabricmc.example;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.example.enchantments.EfficiencyVIIEnchantment;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,21 +23,7 @@ public class Main implements ModInitializer {
 
 		//net.minecraft.enchantment.EfficiencyEnchantment a = new net.minecraft.enchantment.EfficiencyEnchantment();
 		//TODO change effi 5 -> 9
-
-		onItem10Durability();
-
 		LOGGER.info("Hello Fabric world!");
-	}
-
-	public void onItem10Durability() {
-		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) ->
-		{
-			if (player.getMainHandStack().isDamaged()){
-				if (player.getMainHandStack().getDamage() >= player.getMainHandStack().getMaxDamage() - 10){
-					return ActionResult.FAIL;
-				}
-			}
-			return ActionResult.PASS;
-		});
+		//Tool.onItemDurability();
 	}
 }
