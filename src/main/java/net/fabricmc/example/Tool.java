@@ -4,11 +4,16 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.util.ActionResult;
 
+import java.util.List;
+
 public class Tool {
-    boolean enableAttackBlock = false;
-    boolean enableAttackEntity = false;
+    public static boolean enableAttackBlock;
+    public static boolean enableAttackEntity;
 
-
+    public static void setOption() {
+        enableAttackBlock = Client.option.get(0).value;
+        enableAttackEntity = Client.option.get(1).value;
+    }
 
     public static void onItemDurabilityAttackBlock() {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) ->

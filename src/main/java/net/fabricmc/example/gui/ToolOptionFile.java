@@ -1,6 +1,10 @@
 package net.fabricmc.example.gui;
 
+import net.fabricmc.example.Option;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ToolOptionFile {
@@ -17,13 +21,19 @@ public class ToolOptionFile {
         options = file;
     }
 
-    public static String getFileOption() {
-        String data = "";
+    public static List<Option> getFileOption() {
+        List<Option> data = new ArrayList<>();
+        String[] array;
         Scanner myReader;
         try {
             myReader = new Scanner(new FileReader(path));
             while (myReader.hasNextLine()) {
-                data += myReader.nextLine() + "\n";
+                Option option = new Option();
+                array = myReader.nextLine().split(":");
+                option.name = array[0];
+                option.value = Boolean.parseBoolean(array[1]);
+
+                data.add(option);
                 System.out.println(data);
             }
             myReader.close();
@@ -50,7 +60,21 @@ public class ToolOptionFile {
     public static void writeFile() {
         try {
             FileWriter writer = new FileWriter(path);
-            writer.write("Files in Java might be tricky, but it is fun enough!");
+            writer.write("enableAttackBlock:false\n");
+            writer.write("enableAttackEntity:false");
+            writer.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateFile(List<Option> data) {
+        try {
+            FileWriter writer = new FileWriter(path);
+            writer.write(data.get(0).name + ":" + data.get(0).value + "\n");
+            writer.write(data.get(1).name + ":" + data.get(1).value);
             writer.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
