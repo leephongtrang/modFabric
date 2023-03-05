@@ -24,6 +24,5 @@ public class Main implements ModInitializer {
 		//net.minecraft.enchantment.EfficiencyEnchantment a = new net.minecraft.enchantment.EfficiencyEnchantment();
 		//TODO change effi 5 -> 9
 		LOGGER.info("Hello Fabric world!");
-		//Tool.onItemDurability();
 	}
 }
