@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ToolOptionFile {
     static String fileName = "toolOption.txt";
-    static String path = "..\\option\\" + fileName;
+    static String path = "..\\" + fileName;
     static File options;
 
     public static void initFile() {

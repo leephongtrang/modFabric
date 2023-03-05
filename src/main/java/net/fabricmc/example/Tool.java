@@ -21,8 +21,8 @@ public class Tool {
     public static void onItemDurabilityAttackBlock() {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) ->
         {
-            while (!enableAttackBlock) {
-                if (player.getMainHandStack().isDamaged()) {
+            if (player.getMainHandStack().isDamaged()) {
+                while (!enableAttackBlock) {
                     if (player.getMainHandStack().getDamage() >= player.getMainHandStack().getMaxDamage() - 10) {
                         world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1f, 1f);
                         return ActionResult.FAIL;
@@ -31,14 +31,13 @@ public class Tool {
             }
             return ActionResult.PASS;
         });
-
     }
 
     public static void onItemDurabilityAttackEntity() {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) ->
         {
-            while (!enableAttackEntity) {
-                if (player.getMainHandStack().isDamaged()) {
+            if (player.getMainHandStack().isDamaged()) {
+                while (!enableAttackEntity) {
                     if (player.getMainHandStack().getDamage() >= player.getMainHandStack().getMaxDamage() - 10) {
                         world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1f, 1f);
                         return ActionResult.FAIL;
