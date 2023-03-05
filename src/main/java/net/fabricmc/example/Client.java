@@ -17,7 +17,7 @@ public class Client implements ClientModInitializer {
         Tool.onItemDurabilityAttackEntity();
         Tool.onItemDurabilityAttackBlock();
 
-        ToolOption.keyBindControl();
+        //ToolOption.keyBindControl();
         ToolOption.init();
     }
 }

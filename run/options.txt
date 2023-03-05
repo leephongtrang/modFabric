@@ -114,7 +114,7 @@ key_key.hotbar.9:key.keyboard.9
 key_key.fabric-key-binding-api-v1-testmod.test_keybinding_2:key.keyboard.x
 key_key.fabric-key-binding-api-v1-testmod.test_keybinding_sticky:key.keyboard.r
 key_key.fabric-key-binding-api-v1-testmod.test_keybinding_1:key.keyboard.z
-soundCategory_master:0.0
+soundCategory_master:0.84933776
 soundCategory_music:1.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
