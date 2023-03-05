@@ -1,2 +1,2 @@
 enableAttackBlock:true
-enableAttackEntity:true
+enableAttackEntity:false

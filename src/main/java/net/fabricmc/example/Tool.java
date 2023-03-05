@@ -22,7 +22,7 @@ public class Tool {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) ->
         {
             if (player.getMainHandStack().isDamaged()) {
-                while (!enableAttackBlock) {
+                if (!enableAttackBlock) {
                     if (player.getMainHandStack().getDamage() >= player.getMainHandStack().getMaxDamage() - 10) {
                         world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1f, 1f);
                         return ActionResult.FAIL;
@@ -37,7 +37,7 @@ public class Tool {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) ->
         {
             if (player.getMainHandStack().isDamaged()) {
-                while (!enableAttackEntity) {
+                if (!enableAttackEntity) {
                     if (player.getMainHandStack().getDamage() >= player.getMainHandStack().getMaxDamage() - 10) {
                         world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1f, 1f);
                         return ActionResult.FAIL;
