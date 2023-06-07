@@ -3,8 +3,8 @@
   "id": "sais-pas",
   "version": "${version}",
 
-  "name": "Deepslates (Nom provisoire)",
-  "description": "Donut don't know how howl fly.",
+  "name": "toolDurability",
+  "description": "Prevent your tool from breaking.",
   "authors": [
     "Afonu"
   ],
@@ -13,7 +13,7 @@
     "sources": ""
   },
 
-  "license": "Don't know I should look",
+  "license": "Don't know, I should look",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
