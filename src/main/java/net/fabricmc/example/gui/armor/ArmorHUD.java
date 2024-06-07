@@ -1,16 +1,11 @@
 package net.fabricmc.example.gui.armor;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.sun.jna.platform.unix.X11;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.decoration.DisplayEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
@@ -20,11 +15,13 @@ public class ArmorHUD implements HudRenderCallback{
     // Function to set color
     public static int calculateDisplayColor(int max, int cur) {
 
-        if (cur < max/5)
-            return 0xff000;
-        if (cur > max*9/10 && cur>max-100)
+        if (cur >= max*0.5)
+            return Color.GREEN.getRGB();
+        if (cur < max*0.05)
+            return Color.LIGHT_GRAY.getRGB();
+        if (cur < max*0.1)
             return Color.RED.getRGB();
-        if (cur > max*4/5 && cur>max-200)
+        if (cur < max*0.5)
             return Color.YELLOW.getRGB();
         return Color.WHITE.getRGB();
     }
@@ -77,20 +74,29 @@ public class ArmorHUD implements HudRenderCallback{
         TextRenderer renderer = client.textRenderer;
 
         // Render Helmet
-        drawContext.drawTexture(helmet, 0, 100, 0, 0, 16, 16, 16, 16);
-        drawContext.drawText(renderer, String.valueOf(helmetDurability), 20, 105, calculateDisplayColor(helmetMaxDurability, helmetDurability), true);
+        if (helmetMaxDurability != 0) {
+            drawContext.drawTexture(helmet, 0, 100, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(helmetDurability), 20, 105, calculateDisplayColor(helmetMaxDurability, helmetDurability), true);
+        }
 
         // Render Chestplate
-        drawContext.drawTexture(chestplate, 0, 120, 0, 0, 16, 16, 16, 16);
-        drawContext.drawText(renderer, String.valueOf(chestplateDurability), 20, 125, calculateDisplayColor(chestplateMaxDurability, chestplateDurability), true);
+        if (chestplateMaxDurability != 0) {
+            drawContext.drawTexture(chestplate, 0, 120, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(chestplateDurability), 20, 125, calculateDisplayColor(chestplateMaxDurability, chestplateDurability), true);
+        }
 
         // Render Legging
-        drawContext.drawTexture(legging, 0, 140, 0, 0, 16, 16, 16, 16);
-        drawContext.drawText(renderer, String.valueOf(leggingDurability), 20, 145, calculateDisplayColor(leggingMaxDurability, leggingDurability), true);
+        if (leggingMaxDurability != 0) {
+            drawContext.drawTexture(legging, 0, 140, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(leggingDurability), 20, 145, calculateDisplayColor(leggingMaxDurability, leggingDurability), true);
+        }
+
 
         // Render Boots
-        drawContext.drawTexture(boot, 0, 160, 0, 0, 16, 16, 16, 16);
-        drawContext.drawText(renderer, String.valueOf(bootDurability), 20, 165, calculateDisplayColor(bootMaxDurability, bootDurability), true);
+        if (bootMaxDurability != 0) {
+            drawContext.drawTexture(boot, 0, 160, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(bootDurability), 20, 165, calculateDisplayColor(bootMaxDurability, bootDurability), true);
+        }
 
     }
 }
