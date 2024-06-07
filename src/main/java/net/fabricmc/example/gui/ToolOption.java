@@ -7,18 +7,20 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.StickyKeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.NotImplementedException;
 import org.lwjgl.glfw.GLFW;
 
 public class ToolOption {
     static MinecraftClient minecraftClient = MinecraftClient.getInstance();
-    static ToolOptionScreen menu = new ToolOptionScreen(new ToolOptionGUI());
+    //static ToolOptionScreen menu = new ToolOptionScreen(new ToolOptionGUI());
 
     public static void init() {
         keyBindOpenOptionMenu();
     }
 
     public static void openMenu() {
-        minecraftClient.setScreen(menu);
+        throw new NotImplementedException();
+        //minecraftClient.setScreen(menu);
     }
 
     public static void closeMenu() {
