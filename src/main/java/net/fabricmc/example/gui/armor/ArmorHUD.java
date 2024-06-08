@@ -1,6 +1,5 @@
 package net.fabricmc.example.gui.armor;
 
-import com.google.common.collect.Iterables;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -10,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
-import java.util.*;
 
 public class ArmorHUD implements HudRenderCallback{
 
@@ -27,22 +25,6 @@ public class ArmorHUD implements HudRenderCallback{
             return Color.YELLOW.getRGB();
         return Color.WHITE.getRGB();
     }
-
-    ///
-    public class Gear{
-        public int maxDurability;
-        public int durability;
-        public String piece;
-
-        public Gear(int _durability, int _maxDurability, String _piece){
-            maxDurability = _maxDurability;
-            durability = _durability;
-            piece = _piece;
-        }
-    }
-
-    public ArrayList<Gear> gears = new ArrayList<>();
-    ///
 
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
@@ -62,24 +44,14 @@ public class ArmorHUD implements HudRenderCallback{
 
         assert player != null;
         Iterable<ItemStack> armor = player.getArmorItems();
-
-
-
-
-
-//        for (ItemStack itemStack : armor) {
-//            gears.add(new Gear(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString()));
-//        }
-
         TextRenderer renderer = client.textRenderer;
 
+        int relativePosition = -35;
 
-
-        int relativePosition = 0;
         for (ItemStack itemStack : armor) {
             if (itemStack.getMaxDamage() != 0) {
-                drawContext.drawTexture(new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png"), x-94, y-(y/2)+relativePosition, 0, 0, 16, 16, 16, 16);
-                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)+relativePosition, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
+                drawContext.drawTexture(new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png"), x-94, y-(y/2)-relativePosition-10, 0, 0, 16, 16, 16, 16);
+                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)-relativePosition, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
                 relativePosition += 20;
             }
         }
