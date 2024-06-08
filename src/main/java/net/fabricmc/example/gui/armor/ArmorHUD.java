@@ -10,8 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class ArmorHUD implements HudRenderCallback{
 
@@ -42,7 +41,7 @@ public class ArmorHUD implements HudRenderCallback{
         }
     }
 
-    public Gear[] gears = new Gear[4];
+    public ArrayList<Gear> gears = new ArrayList<>();
     ///
 
     @Override
@@ -64,33 +63,25 @@ public class ArmorHUD implements HudRenderCallback{
         assert player != null;
         Iterable<ItemStack> armor = player.getArmorItems();
 
-        int compter = 0;
-        while (armor.iterator().hasNext()) {
-            gears[compter] = new Gear(armor.iterator().next().getMaxDamage(), armor.iterator().next().getMaxDamage() - armor.iterator().next().getDamage(), armor.iterator().next().getItem().toString());
-            compter++;
-        }
 
-//        for (int i = 0; i < Iterables.size(armor); i++) {
-//            gears[i] = new Gear(armor .getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString());
+
+
+
+//        for (ItemStack itemStack : armor) {
+//            gears.add(new Gear(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString()));
 //        }
 
         TextRenderer renderer = client.textRenderer;
 
-        ArrayList<Gear> gearsCompare = new ArrayList<>();
-
 
 
         int relativePosition = 0;
-
-        for (int i = gears.length-1; i >= 0; i--) {
-            var gearIdentifier = new Identifier("minecraft", "textures/item/" + gears[i].piece + ".png");
-            drawContext.drawTexture(gearIdentifier, x-94, y-(y/2)+relativePosition, 0, 0, 16, 16, 16, 16);
-            drawContext.drawText(renderer, String.valueOf(gears[i].durability), x-74, y-290, calculateDisplayColor(gears[i].maxDurability, gears[i].durability), true);
-            relativePosition += 20;
-        }
-
         for (ItemStack itemStack : armor) {
-            gearsCompare.add(new Gear(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString()));
+            if (itemStack.getMaxDamage() != 0) {
+                drawContext.drawTexture(new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png"), x-94, y-(y/2)+relativePosition, 0, 0, 16, 16, 16, 16);
+                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)+relativePosition, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
+                relativePosition += 20;
+            }
         }
     }
 }
