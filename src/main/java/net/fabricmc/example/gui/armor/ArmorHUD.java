@@ -1,5 +1,6 @@
 package net.fabricmc.example.gui.armor;
 
+import com.google.common.collect.Iterables;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -9,6 +10,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArmorHUD implements HudRenderCallback{
 
@@ -26,6 +29,22 @@ public class ArmorHUD implements HudRenderCallback{
         return Color.WHITE.getRGB();
     }
 
+    ///
+    public class Gear{
+        public int maxDurability;
+        public int durability;
+        public String piece;
+
+        public Gear(int _durability, int _maxDurability, String _piece){
+            maxDurability = _maxDurability;
+            durability = _durability;
+            piece = _piece;
+        }
+    }
+
+    public Gear[] gears = new Gear[4];
+    ///
+
     @Override
     public void onHudRender(DrawContext drawContext, float tickDelta) {
         MinecraftClient client =  MinecraftClient.getInstance();
@@ -41,72 +60,37 @@ public class ArmorHUD implements HudRenderCallback{
 
         assert MinecraftClient.getInstance() != null;
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        Identifier boot = null;
-        Identifier legging = null;
-        Identifier chestplate = null;
-        Identifier helmet = null;
-
-        int helmetDurability = 0;
-        int chestplateDurability = 0;
-        int leggingDurability = 0;
-        int bootDurability = 0;
-
-        int helmetMaxDurability = 0;
-        int chestplateMaxDurability = 0;
-        int leggingMaxDurability = 0;
-        int bootMaxDurability = 0;
-
-        int counter = 0;
 
         assert player != null;
         Iterable<ItemStack> armor = player.getArmorItems();
 
-        for (ItemStack itemStack : armor) {
-            if (counter == 0){
-                bootDurability = itemStack.getMaxDamage() - itemStack.getDamage();
-                bootMaxDurability = itemStack.getMaxDamage();
-                boot = new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png");
-            } else if (counter == 1) {
-                leggingDurability = itemStack.getMaxDamage() - itemStack.getDamage();
-                leggingMaxDurability = itemStack.getMaxDamage();
-                legging = new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png");
-            } else if (counter == 2) {
-                chestplateDurability = itemStack.getMaxDamage() - itemStack.getDamage();
-                chestplateMaxDurability = itemStack.getMaxDamage();
-                chestplate = new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png");
-            } else if (counter == 3) {
-                helmetDurability = itemStack.getMaxDamage() - itemStack.getDamage();
-                helmetMaxDurability = itemStack.getMaxDamage();
-                helmet = new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png");
-            }
-            counter++;
+        int compter = 0;
+        while (armor.iterator().hasNext()) {
+            gears[compter] = new Gear(armor.iterator().next().getMaxDamage(), armor.iterator().next().getMaxDamage() - armor.iterator().next().getDamage(), armor.iterator().next().getItem().toString());
+            compter++;
         }
+
+//        for (int i = 0; i < Iterables.size(armor); i++) {
+//            gears[i] = new Gear(armor .getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString());
+//        }
 
         TextRenderer renderer = client.textRenderer;
 
-        // Render Helmet
-        if (helmetMaxDurability != 0) {
-            drawContext.drawTexture(helmet, x-94, y-295, 0, 0, 16, 16, 16, 16);
-            drawContext.drawText(renderer, String.valueOf(helmetDurability), x-74, y-290, calculateDisplayColor(helmetMaxDurability, helmetDurability), true);
+        ArrayList<Gear> gearsCompare = new ArrayList<>();
+
+
+
+        int relativePosition = 0;
+
+        for (int i = gears.length-1; i >= 0; i--) {
+            var gearIdentifier = new Identifier("minecraft", "textures/item/" + gears[i].piece + ".png");
+            drawContext.drawTexture(gearIdentifier, x-94, y-(y/2)+relativePosition, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(gears[i].durability), x-74, y-290, calculateDisplayColor(gears[i].maxDurability, gears[i].durability), true);
+            relativePosition += 20;
         }
 
-        // Render Chestplate
-        if (chestplateMaxDurability != 0) {
-            drawContext.drawTexture(chestplate, x-94, y-275, 0, 0, 16, 16, 16, 16);
-            drawContext.drawText(renderer, String.valueOf(chestplateDurability), x-74, y-270, calculateDisplayColor(chestplateMaxDurability, chestplateDurability), true);
+        for (ItemStack itemStack : armor) {
+            gearsCompare.add(new Gear(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage(), itemStack.getItem().toString()));
         }
-
-        // Render Legging
-        if (leggingMaxDurability != 0) {
-            drawContext.drawTexture(legging, x-94, y-255, 0, 0, 16, 16, 16, 16);
-            drawContext.drawText(renderer, String.valueOf(leggingDurability), x-74, y-250, calculateDisplayColor(leggingMaxDurability, leggingDurability), true);
-        }
-
-        // Render Boots
-        if (bootMaxDurability != 0) {
-            drawContext.drawTexture(boot, x-94, y-235, 0, 0, 16, 16, 16, 16);
-            drawContext.drawText(renderer, String.valueOf(bootDurability), x-74, y-230, calculateDisplayColor(bootMaxDurability, bootDurability), true);
-        }
-
     }
 }
