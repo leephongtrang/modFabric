@@ -3,8 +3,8 @@
   "id": "sais-pas",
   "version": "${version}",
 
-  "name": "Deepslates (Nom provisoire)",
-  "description": "Donut don't know how howl fly.",
+  "name": "toolDurability",
+  "description": "Prevent your tool from breaking.",
   "authors": [
     "Afonu"
   ],
@@ -13,13 +13,16 @@
     "sources": ""
   },
 
-  "license": "Don't know I should look",
+  "license": "Don't know, I should look",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
       "net.fabricmc.example.Main"
+    ],
+    "client": [
+      "net.fabricmc.example.Client"
     ]
   },
   "mixins": [
@@ -29,8 +32,9 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "~1.19",
-    "java": ">=17"
+    "minecraft": "~1.20",
+    "java": ">=17",
+    "fabric-key-binding-api-v1": "*"
   },
   "suggests": {
     "another-mod": "*"
