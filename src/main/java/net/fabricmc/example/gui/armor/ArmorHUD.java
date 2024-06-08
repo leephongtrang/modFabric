@@ -51,7 +51,7 @@ public class ArmorHUD implements HudRenderCallback{
         for (ItemStack itemStack : armor) {
             if (itemStack.getMaxDamage() != 0) {
                 drawContext.drawTexture(new Identifier("minecraft", "textures/item/" + itemStack.getItem().toString() + ".png"), x-94, y-(y/2)-relativePosition-10, 0, 0, 16, 16, 16, 16);
-                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)-relativePosition, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
+                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)-relativePosition-6, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
                 relativePosition += 20;
             }
         }
