@@ -47,14 +47,17 @@ public class ArmorHUD implements HudRenderCallback{
         Iterable<ItemStack> armor = player.getArmorItems();
         TextRenderer renderer = client.textRenderer;
 
-        int relativePosition = -35;
-
+        int relativePosition = -180;
         for (ItemStack itemStack : armor) {
             if (itemStack.getMaxDamage() != 0) {
-                drawContext.drawTexture(Identifier.of("minecraft", "textures/item/" + itemStack.getItem().toString().split(":")[1] + ".png"), x-94, y-(y/2)-relativePosition-10, 0, 0, 16, 16, 16, 16);
-                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-74, y-(y/2)-relativePosition-6, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
+                drawContext.drawTexture(Identifier.of("minecraft", "textures/item/" + itemStack.getItem().toString().split(":")[1] + ".png"), x-92, y-(y/2)-relativePosition-10, 0, 0, 16, 16, 16, 16);
+                drawContext.drawText(renderer, String.valueOf(itemStack.getMaxDamage() - itemStack.getDamage()), x-72, y-(y/2)-relativePosition-6, calculateDisplayColor(itemStack.getMaxDamage(), itemStack.getMaxDamage() - itemStack.getDamage()), true);
                 relativePosition += 20;
             }
         }
+        if (player.getMainHandStack().getMaxDamage() != 0) {
+            drawContext.drawTexture(Identifier.of("minecraft", "textures/item/" + player.getMainHandStack().getItem().toString().split(":")[1] + ".png"), x-92, y-(y/2)-relativePosition-10, 0, 0, 16, 16, 16, 16);
+            drawContext.drawText(renderer, String.valueOf(player.getMainHandStack().getMaxDamage() - player.getMainHandStack().getDamage()), x-72, y-(y/2)-relativePosition-4, calculateDisplayColor(player.getMainHandStack().getMaxDamage(), player.getMainHandStack().getMaxDamage() - player.getMainHandStack().getDamage()), true);
+        };
     }
 }
