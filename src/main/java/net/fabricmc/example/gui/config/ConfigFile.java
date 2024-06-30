@@ -1,13 +1,34 @@
-package net.fabricmc.example.gui;
+package net.fabricmc.example.gui.config;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.example.Option;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ToolOptionFile {
+@Config(name = "toolDurability")
+public class ConfigFile extends PartitioningSerializer.GlobalData {
+    @ConfigEntry.Category("prevent_breaking")
+    @ConfigEntry.Gui.TransitiveObject
+    PreventBreakingConfig preventBreakingConfig = new PreventBreakingConfig();
+
+    @ConfigEntry.Category("show_breaking_progression")
+    @ConfigEntry.Gui.TransitiveObject
+    ShowBreakingProgressionConfig showBrkProgressionConfig = new ShowBreakingProgressionConfig();
+
+
+
     static String fileName = "toolOption.txt";
     static String path = "..\\" + fileName;
     static File options;
@@ -83,3 +104,4 @@ public class ToolOptionFile {
         }
     }
 }
+

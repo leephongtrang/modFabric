@@ -1,4 +1,4 @@
-package net.fabricmc.example.gui;
+package net.fabricmc.example.gui.config;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -19,7 +19,7 @@ public class ToolOption {
     }
 
     public static void openMenu() {
-        throw new NotImplementedException();
+        ConfigScreen.OpenScreen();
         //minecraftClient.setScreen(menu);
     }
 
